@@ -1,5 +1,5 @@
 '''
-単純挿入法
+バブルソート
 1. i = 0~N - 2 について，2 ~ 4 を繰り返す.
 2. jをN - 1とする.
 3. INPUT_VALUE [j - 1] と INPUT_VALUE[j] を比較し，INPUT_VALUE[j] のほうが小さければ，INPUT_VALUE[j - 1] と INPUT_VALUE[j] を交換する. 
