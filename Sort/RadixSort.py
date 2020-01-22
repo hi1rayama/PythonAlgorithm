@@ -8,9 +8,9 @@
 
 def radixSort(N, INPUT_VALUE):
     print("ソート前：", INPUT_VALUE)
-    bucket = [[], [], [], [], [], [], [], [], [], []]
-    bucket2 = [[], [], [], [], [], [], [], [], [], []]
-    bucket3 = [[], [], [], [], [], [], [], [], [], []]
+    bucket = [[] for i in range(10)]
+    bucket2 = [[] for i in range(10)]
+    bucket3 = [[] for i in range(10)]
     result = []
     try:
         for value in INPUT_VALUE:
@@ -44,10 +44,8 @@ def radixSort(N, INPUT_VALUE):
                 R = int((i % 100) / 10)
                 if(R == 0):
                     bucket2[0].append(i)
-                   
                 elif(R == 1):
                     bucket2[1].append(i)
-                   
                 elif(R == 2):
                     bucket2[2].append(i)
                 elif(R == 3):
@@ -69,11 +67,9 @@ def radixSort(N, INPUT_VALUE):
             for i in value:
                 R = int(i / 100)
                 if(R == 0):
-                    bucket3[0].append(i)
-                   
+                    bucket3[0].append(i)                   
                 elif(R == 1):
-                    bucket3[1].append(i)
-                  
+                    bucket3[1].append(i)                  
                 elif(R == 2):
                     bucket3[2].append(i)
                 elif(R == 3):
