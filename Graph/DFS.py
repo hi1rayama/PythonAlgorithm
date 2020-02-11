@@ -30,11 +30,11 @@ edge_cnt = 0  # 木を構成するエッジとして登録されたエッジの�
 df_flag = [0 for i in range(NODES)]  # 探索状況[0:未探索, 1:探索済み] 初期値：0
 TREE = [Node() for i in range(NODES - 1)]  # 探索木
 
-matrix_list = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [2, 5],
+lis = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [2, 5],
                [3, 6], [3, 7], [4, 5], [5, 7], [5, 8], [6, 7], [7, 8]]  # エッジ(隣接リスト)
 
 matrix = [[0 for i in range(NODES)] for i in range(NODES)]  # エッジ(隣接行列)
-for edge in matrix_list:
+for edge in lis:
     i, j = edge[0], edge[1]
     matrix[i][j] = 1
     matrix[j][i] = 1
