@@ -8,6 +8,13 @@
 6. i < jかつINPUT_VALUE[i] != INPUT_VALUE[j]ならばINPUT_VALUE[i]とINPUT_VALUE[j]を交換し，iを1増加，jを1減少させて3.に戻る ここで，pivot として設定した要素自体も移動する可能性があることに注意します
 7. i == jまたはINPUT_VALUE[i] == INPUT_VALUE[j]ならば，iを1増加，jを1減少させて3.に戻る
 
+
+平均計算量：O(nlogn)
+最悪計算量：O(n^2)
+内部ソート：○
+安定ソート：×
+最悪の場合は、O(n^2)
+
 '''
 
 def quickSort(INPUT_VALUE,start,end):

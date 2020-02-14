@@ -4,6 +4,13 @@
 2. すでにソート済みの INPUT_VALUE[0]~INPUT_VALUE[i - 1] の中で，INPUT_VALUE[i] が入るべき位置 k を見つける (INPUT_VALUE[i] が最大の ときは k = i).
 3. INPUT_VALUE~ INPUT_VALUE[i - 1] を 1 つ後ろにずらす (k = i のときは何もしない).
 4.  INPUT_VALUE[i] の値を，空いた  INPUT_VALUE[k] に代入する.
+
+平均計算量：O(n^2)
+最悪計算量：O(n^2)
+内部ソート：○
+安定ソート：○
+ほとんど整列しているデータには強い(O(n)で動作する)
+
 '''
 
 def insertionSort(N,INPUT_VALUE):

@@ -5,6 +5,11 @@
 3. INPUT_VALUE [j - 1] と INPUT_VALUE[j] を比較し，INPUT_VALUE[j] のほうが小さければ，INPUT_VALUE[j - 1] と INPUT_VALUE[j] を交換する. 
 4. jを1減らす.減らした j に対して j > i であれば，3.に戻る.
 
+平均計算量：O(n^2)
+最悪計算量：O(n^2)
+内部ソート：○
+安定ソート：○
+
 '''
 
 def bubbleSort(N,INPUT_VALUE):

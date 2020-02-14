@@ -2,6 +2,11 @@
 単純選択法
 1. 変数 i を最小要素を入れる配列番号として扱い，以下の操作を，i = 0~N - 2 について繰り返す.
 2. INPUT_VALUE[i]~INPUT_VALUE[N - 1] の中から，最小要素 a[k] を探し，INPUT_VALUE[i] と入れ換える.
+
+平均計算量：O(n^2)
+最悪計算量：O(n^2)
+内部ソート：○
+安定ソート：×
 '''
 
 def selectionSort(N,INPUT_VALUE):
