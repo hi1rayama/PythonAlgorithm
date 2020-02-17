@@ -11,7 +11,6 @@
 安定ソート：○
 '''
 
-
 def radixSort(N, INPUT_VALUE):
     print("ソート前：", INPUT_VALUE)
     bucket = [[] for i in range(10)]
@@ -23,10 +22,8 @@ def radixSort(N, INPUT_VALUE):
             R = value % 10
             if(R == 0):
                 bucket[0].append(value)
-               # print(bucket[0])
             elif(R == 1):
                 bucket[1].append(value)
-              #  print(bucket[1])
             elif(R == 2):
                 bucket[2].append(value)
             elif(R == 3):
