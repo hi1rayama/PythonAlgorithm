@@ -18,7 +18,7 @@ IIP = [40, 8, 48, 16, 56, 24, 64, 32,
        36, 4, 44, 12, 52, 20, 60, 28,
        35, 3, 43, 11, 51, 19, 59, 27,
        34, 2, 42, 10, 50, 18, 58, 26,
-       33, 1, 41,  9, 49, 17, 57, 25,]
+       33, 1, 41,  9, 49, 17, 57, 25]
 
 
 # 拡張転置表 E(48)
@@ -104,56 +104,57 @@ PC2 = [14, 17, 11, 24, 1, 5,
        44, 49, 39, 56, 34, 53,
        46, 42, 50, 36, 29, 32]
 
-LS=[1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1]
-Ki=[]
+LS = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
+Ki = []
+
+# ラウンド関数
 
 def f(R, K):
     # 転置作業
     S = 0b0
     for n, i in enumerate(E):
-        a = (R >> (i-1)) & 1
-        S = S | a << (n)
+        a = (R >> (i-1)) & 1  # 拡大転置表Eをもとに(i-1)bit目を抽出
+        S = S | a << n
     # XOR
     S = S ^ K
 
     BOX = 0b0
-    for n,Si in enumerate(S_BOX):
-        tmp=(S>>(n*6)) & 0b111111
-        row=(tmp & 0b1)<<1 | (tmp & 0b100000)>>5
-        column=(tmp & 0b10)<< 2 | (tmp & 0b100) | (tmp & 0b1000) >> 2 | (tmp & 0b10000) >> 4
-        get=Si[row][column]
-        BOX=BOX | (get << n*4)
-    SS=0b0
-    print(bin(BOX))
-    for n,i in enumerate(P):
-        a=(BOX >> (i -1)) & 1
-        SS=SS | a << n
-    return SS 
+    # SBOXに基づいて6bitを4bitにする
+    for n, Si in enumerate(S_BOX):
+        tmp = (S >> (n*6)) & 0b111111  # Sから6ビット抽出
 
-#鍵生成
+        # 行の計算を行う[b1b6(MSBをb1とする)]
+        row = (tmp & 0b1) << 1 | (tmp & 0b100000) >> 5
+        # 列の計算を行う[b2b3b4b5(MSBをb2とする)]
+        column = (tmp & 0b10) << 2 | (tmp & 0b100) | (
+            tmp & 0b1000) >> 2 | (tmp & 0b10000) >> 4
+        get = Si[row][column]
+        BOX = BOX | (get << n*4)
+    SS = 0b0
+    # 転置表Pに基づいて転置を行う
+    for n, i in enumerate(P):
+        a = (BOX >> (i - 1)) & 1
+        SS = SS | a << n
+    return SS
+
+
 def key_generate(K):
-      tmp=0b0
-      for n,i in enumerate(PC1):
-            a=(K >> (i-1)) & 1
-            tmp= tmp | a << (n)
-      C = (tmp & 0xfffffff0000000) >> 28 #上位28bit
-      D = tmp & 0xfffffff #下位28bit
-      for n in LS:
-            tmp=0b0
-            C =((C << n) & 0xfffffff) | (C >> (28-n)) #循環左シフト(n bit)
-            D = ((D << n) & 0xfffffff) | (D >> (28-n))
-            CD= D | C << 28
-            for n2,i in enumerate(PC2):
-                  a=(CD >> (i-1)) & 1
-                  tmp= tmp | a << n
-            Ki.append(tmp)
+    tmp = 0b0
+    for n, i in enumerate(PC1):
+        a = (K >> (i-1)) & 1
+        tmp = tmp | a << n
 
+    C = (tmp & 0xfffffff0000000) >> 28  # 上位28bit
+    D = tmp & 0xfffffff  # 下位28bit
+    for n in LS:
+        tmp = 0b0
+        C1 = (C << n)
+        D1 = (D << n)
+        C = ((C1) & 0xfffffff) | (C1 >> (28))  # 左巡回シフト(n bit)
+        D = ((D1) & 0xfffffff) | (D1 >> (28))
+        CD = D | C << 28
+        for n2, i in enumerate(PC2):
+            a = (CD >> (i-1)) & 1
+            tmp = tmp | a << n2
+        Ki.append(tmp)
 
-
-
-
-
-
-
-
-f(0b11000000000000000000000000000001, 0b1110)
